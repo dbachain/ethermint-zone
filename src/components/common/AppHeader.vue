@@ -1,15 +1,17 @@
 <template lang='pug'>
 header.app-header
   .container
-    .header-item(@click='toggleMenuApp', v-if='!desktop')
-      i.material-icons(v-if='!activeMenuApp') menu
-      i.material-icons(v-else='') close
-    router-link.header-item.header-item-link(to='/') {{ text.zoneName }}
-    menu.menu-popup.menu-app(v-if='activeMenuApp || desktop')
+    .header-item(@click="toggleMenuApp", v-if="!desktop")
+      i.material-icons(v-if="!activeMenuApp") menu
+      i.material-icons(v-else="") close
+    router-link.header-item.header-item-link(to="/") {{ text.zoneName }}
+    menu.menu-popup.menu-app(v-if="activeMenuApp || desktop")
       nav.nav-app
-        router-link(to='/' @click.native='close') Home
-    a.header-item(href="https://cosmos.network" target="_blank")
-      img(src="~assets/images/logos/cosmos-logo.png")
+        router-link(to="/" @click.native="close") Index
+        a(:href="text.zoneGithub" target="_blank" @click.native="close" v-if="desktop") GitHub
+        a(:href="cosmos.website" target="_blank" @click.native="close") Cosmos Network
+    a.header-item(:href="text.zoneGithub" target="_blank" v-if="!desktop")
+      i.material-icons(v-if="!activeMenuApp") code
 </template>
 
 <script>
@@ -18,7 +20,7 @@ import disableScroll from 'disable-scroll'
 export default {
   name: 'app-header',
   computed: {
-    ...mapGetters(['text'])
+    ...mapGetters(['text', 'cosmos'])
   },
   data: () => ({
     activeMenuApp: false,
@@ -30,18 +32,9 @@ export default {
       this.activeMenuFundraiser = false
       disableScroll.off()
     },
-    goto (route) {
-      this.close()
-      this.$router.push(route)
-    },
     toggleMenuApp () {
       this.activeMenuApp = !this.activeMenuApp
       if (this.activeMenuApp) disableScroll.on()
-      else disableScroll.off()
-    },
-    toggleMenuFundraiser () {
-      this.activeMenuFundraiser = !this.activeMenuFundraiser
-      if (this.activeMenuFundraiser) disableScroll.on()
       else disableScroll.off()
     },
     watchWindowSize () {
@@ -71,10 +64,9 @@ export default {
   z-index 100
   width 100vw
   background app-bg
+  border-bottom 1px solid bc-dim
 
   .container
-    max-width 1024px
-    margin 0 auto
     display flex
     flex-flow row wrap
     justify-content space-between
@@ -87,22 +79,10 @@ export default {
     justify-content center
 
     color txt
+    font-weight bold
     cursor pointer
-
-    i + .label
-      margin-left 0.5rem
-      user-select none
-
     i.material-icons
       font-size lg
-
-    img
-      display block
-      height 2rem
-
-    &:hover
-      i, .label
-        color bright
 
   .menu-app
     nav
@@ -172,15 +152,8 @@ export default {
           color bright
           border-color hover
 
-        /*
-        &.header-item-link.router-link-exact-active
-          background app-fg
-          border-color mc
-        */
-
   .menu-popup.menu-app
     display flex
-    display none
     padding 0 1rem
 
     .container

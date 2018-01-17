@@ -1,24 +1,17 @@
 <template lang="pug">
 .section-home: .section-home__container
-  .section-home__header {{ text.communityTitle }}
-  // .app-footer__row.app-footer__row-actions
-    part(title="Get Started")
-      btn(
-        type="link"
-        to="/intro"
-        size="lg"
-        icon="description"
-        value="Read Introduction")
-    part(title="Get Newsletter"): form-email-signup
-  .app-footer__row
-    part(:title="text.communityUrlsTitle"): .community-cards
-      card-community(v-for="i in text.communityUrls"
+  .section-home__header
+    .section-home__title {{ communityTitle }}
+    .section-home__subtitle {{ communitySubtitle }}
+  .community__row
+    part(:title="communityUrlsTitle"): .community-cards
+      card-community(v-for="i in communityUrls"
         :key="i.title"
         :dt="i.title"
         :icon="i.icon"
         :anchor="i.href")
-    part(:title="text.socialMediaUrlsTitle"): .community-cards
-      card-community(v-for="i in text.socialMediaUrls"
+    part(:title="socialMediaUrlsTitle"): .community-cards
+      card-community(v-for="i in socialMediaUrls"
         :key="i.title"
         :dt="i.title"
         :icon="i.icon"
@@ -28,30 +21,48 @@
 <script>
 import {mapGetters} from 'vuex'
 import Cards from 'common/NiCards'
-import Btn from '@nylira/vue-button'
 import CardCommunity from 'cards/CardCommunity'
-import FormEmailSignup from 'forms/FormEmailSignup'
 import Part from 'common/NiPart'
 export default {
-  name: 'app-footer',
+  name: 'community',
   components: {
-    Btn,
     Cards,
     CardCommunity,
-    FormEmailSignup,
     Part
   },
-  computed: { ...mapGetters(['text']) }
+  computed: {
+    ...mapGetters(['text', 'cosmos']),
+    communitySubtitle () {
+      return `${this.text.zoneName} is a zone on the Cosmos Network. Learn more about the Cosmos community and get involved in development.`
+    },
+    communityUrls () {
+      return [
+        { title: 'Telegram', href: this.cosmos.community.telegram, icon: 'telegram' },
+        { title: 'Matrix', href: this.cosmos.community.matrix, icon: 'comments-o' }
+      ]
+    },
+    socialMediaUrls () {
+      return [
+        { title: 'Twitter', href: this.cosmos.community.twitter, icon: 'twatter' },
+        { title: 'Reddit', href: this.cosmos.community.reddit, icon: 'raddit' }
+      ]
+    }
+  },
+  data: () => ({
+    communityTitle: 'Join the Cosmos Network',
+    communityUrlsTitle: 'Discuss & Chat',
+    socialMediaUrlsTitle: 'Social Media'
+  })
 }
 </script>
 
 <style lang="stylus">
 @require '~variables'
 
-.app-footer__row
+.community__row
   margin 0 0 0.25rem
 
-.app-footer__row-actions
+.community__row-actions
   .ni-part-main
     padding 1rem
     background app-fg
@@ -66,7 +77,7 @@ export default {
       margin 0
 
 @media screen and (min-width: 768px)
-  .app-footer__row
+  .community__row
     margin-left 1rem
     margin-right 1rem
 

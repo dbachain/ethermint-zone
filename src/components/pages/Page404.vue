@@ -3,7 +3,7 @@ page(title="Error 404" subtitle="Page Not Found")
   text-container
     h2 Whoops!
     p The page you visited either does not exist or has been moved in a website reshuffle. We're sorry for the inconvenience. Try navigating with the website menu above.
-    p Please notify us at #[a(:href="'mailto:' + config.emails.support") {{ config.emails.support }} ] and we will fix this error as soon as we can. Thank you for your patience.
+    p Please create an issue on this project's #[a(:href="text.zoneWebsiteGitHub") GitHub repository] and we will fix this error as soon as we can. Thank you for your patience.
 </template>
 
 <script>
@@ -16,7 +16,7 @@ export default {
     Page,
     TextContainer
   },
-  computed: { ...mapGetters(['config']) },
+  computed: { ...mapGetters(['text']) },
   mounted () {
     document.title = '404 - Cosmos - Internet of Blockchains'
   }

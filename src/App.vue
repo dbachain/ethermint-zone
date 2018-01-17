@@ -17,26 +17,11 @@ export default {
     AppHeader,
     AppFooter
   },
-  computed: { ...mapGetters(['config', 'text']) },
+  computed: { ...mapGetters(['text']) },
   head: {
     meta () {
       return [
         { n: 'description', c: this.text.siteDescription },
-
-        { n: 'twitter:card', c: 'summary' },
-        { n: 'twitter:site', c: this.config.ids.twitter },
-        { n: 'twitter:title', c: this.text.siteTitle },
-        { n: 'twitter:description', c: this.text.siteDescription },
-        { n: 'twitter:creator', c: this.config.ids.twitter },
-        { p: 'twitter:image', c: require('./assets/favicon/apple-icon-180x180.png') },
-
-        { p: 'og:title', c: this.text.siteTitle },
-        { p: 'og:type', c: 'website' },
-        { p: 'og:url', c: this.config.urls.self },
-        { p: 'og:image', c: require('./assets/favicon/apple-icon-180x180.png') },
-        { p: 'og:description', c: this.text.siteDescription },
-        { p: 'og:site_name', c: this.textsiteTitle },
-        { p: 'fb:admins', c: '' },
 
         { n: 'msapplication-TileColor', c: '#ffffff' },
         { n: 'msapplication-TileImage', c: require('./assets/favicon/ms-icon-144x144.png') },

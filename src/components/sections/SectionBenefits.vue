@@ -1,19 +1,25 @@
 <template lang='pug'>
-.section-home.section-home-benefits: .section-home__container
-  .section-home__header {{ text.benefitsTitle }}
+#section-benefits.section-home.section-home-benefits: .section-home__container
+  .section-home__header
+    .section-home__title {{ text.benefitsTitle }}
+    .section-home__subtitle {{ text.siteDescription }}
   .section-home__main
-    .cosmos-panels
-      .cosmos-panel(v-for="i in text.benefits")
-        .cosmos-panel__image: i.material-icons {{ i.icon }}
-        .cosmos-panel__text
-          .cosmos-panel__title {{ i.title }}
-          .cosmos-panel__body {{ i.body }}
+    .ni-panels: panel(
+      v-for="i in text.benefits"
+      :key="i.title"
+      :icon="i.icon"
+      :title="i.title"
+      :body="i.body")
 </template>
 
 <script>
+import Panel from 'common/NiPanel'
 import {mapGetters} from 'vuex'
 export default {
   name: 'section-benefits',
+  components: {
+    Panel
+  },
   computed: { ...mapGetters(['text']) }
 }
 </script>
@@ -21,87 +27,123 @@ export default {
 <style lang="stylus">
 @require '~variables'
 
-.cosmos-panels
-  margin 0 -1rem
+.section-home__container
+  padding 2rem 1rem
+  max-width 1024px
+  margin 0 auto
+  overflow hidden
 
-.cosmos-panel
-  background app-fg
-  display flex
-  flex-flow column nowrap
-  margin 1rem
-  &:first-child
-    margin-top 0
+.section-home__header
+.section-home__text
+.section-home__diagrams
+  margin-bottom 1.5rem
   &:last-child
     margin-bottom 0
 
-.cosmos-panel__title
-.cosmos-panel__body
-.cosmos-panel__action
+.section-home__header
+  text-align center
+  margin-bottom 1.5rem
+  display flex
+  align-items center
+  flex-flow column
+
+.section-home__title
+.section-home__subtitle
+  max-width 40rem
+
+.section-home__title
+  font-size h1
+  color bright
+  font-weight 500
+  line-height 1.25
+  margin-bottom 1rem
+
+.section-home__subtitle
+  color dim
+
+.section-home__text
+  max-width 32rem
+  margin-left auto
+  margin-right auto
+
+.section-home__p
+  margin-bottom 1.5rem
+  &:last-child
+    margin-bottom 0
+
+.section-home__diagrams
+  background app-bg
+
+.cosmos-diagram
+  display flex
+  flex-flow row nowrap
+
+.cosmos-diagram__image
+  flex 1
   padding 1rem
 
-.cosmos-panel__title + .cosmos-panel__body
-  padding-top 0
-
-.cosmos-panel__body + .cosmos-panel__action
-  padding-top 0
-
-.cosmos-panel__title
-  color bright 
-  font-size h2
-  font-weight 500
-
-.cosmos-panel__image
   i.material-icons
     background link
     color bright
-    font-size 5rem
+    font-size 4rem
     display flex
     align-items center
     justify-content center
-    padding 2rem 0
+    padding 1rem 0
     width 100%
-    max-width 22.25rem
-    max-height 8rem
+    width 8rem
+    height 8rem
+    border-radius 4rem
 
-.cosmos-panel__img
-  width 100%
+.cosmos-diagram__img
+  max-width 8rem
 
+.cosmos-diagram__label
+  flex 2
+  padding 1rem 1rem 1rem 0
+  display flex
+  align-items center
+  font-size sm
 
-.cosmos-panel__action
-  display block
+@media screen and (min-width: 375px)
+  .cosmos-diagram__label
+    padding 1rem
 
 @media screen and (min-width: 768px)
-  .cosmos-panel
-    flex-flow row nowrap
+  .section-home__container
+    padding 3rem 1rem
 
-  .cosmos-panel__image
-    flex 1
+  .section-home__header
+  .section-home__text
+  .section-home__diagrams
+    margin-bottom 3rem
 
-  .cosmos-panel__text
-    flex 2
+  .section-home__subtitle
+    font-size lg
 
-  .cosmos-panel__title
-  .cosmos-panel__body
-  .cosmos-panel__action
-    padding 1.5rem
-
-@media screen and (min-width: 1024px)
-  .cosmos-panels
+  .section-home__diagrams
     display flex
     flex-flow row nowrap
-    margin -1rem 0
+    padding 2rem
 
-  .cosmos-panel
+  .cosmos-diagram
     flex 1
     flex-flow column nowrap
-    &:first-child
-    &:last-child
-      margin 1rem
 
-  .cosmos-panel__text
+  .cosmos-diagram__image
     display flex
-    flex-flow column
+    align-items center
+    justify-content center
+    margin-bottom 1rem
 
-  .cosmos-panel__body
+  .cosmos-diagram__label
     flex 1
+    text-align center
+    align-items flex-start
+    padding-bottom 0
+
+@media screen and (min-width: 1024px)
+  .section-home__diagrams
+    margin-left 1rem
+    margin-right 1rem
 </style>

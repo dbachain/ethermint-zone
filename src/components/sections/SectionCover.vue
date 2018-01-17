@@ -1,21 +1,13 @@
 <template lang='pug'>
 .section-cover
   .section-cover__container
+    .section-cover__name {{ text.zoneName }}
     .section-cover__logo
       i.material-icons(v-if="text.coverIcon") {{ text.coverIcon }}
-      img(v-else src="~assets/images/logo-zone.png")
-    .section-cover__name {{ text.zoneName }}
+      img(v-else src="~assets/images/badge-zone.png")
     .section-cover__tagline {{ text.zoneTagline }}
-    .section-cover__action
-      btn(
-        :href="text.coverBtn.href"
-        :value="text.coverBtn.value"
-        :icon="text.coverBtn.icon"
-        type="anchor"
-        size="lg"
-        target="_blank")
     .section-cover__scroll
-      btn(icon="arrow_downward" v-scroll-to="'#section-what'")
+      btn(icon="arrow_downward" v-scroll-to="'#section-benefits'")
 </template>
 
 <script>
@@ -26,7 +18,7 @@ export default {
   components: {
     Btn
   },
-  computed: { ...mapGetters(['config', 'text']) }
+  computed: { ...mapGetters(['text']) }
 }
 </script>
 
@@ -38,12 +30,13 @@ export default {
   width 100vw
   display flex
   margin-top -3rem
-  background app-fg
-  border-bottom 1px solid bc
+  background app-fg url('~images/bg-zone.png') center center
+  background-size cover
+  border-bottom 1px solid bc-dim
 
 .section-cover__container
   flex 1
-  margin-top 3rem
+  padding-top 3rem
   padding 0 2rem
 
   display flex
@@ -53,25 +46,42 @@ export default {
   position relative
 
 .section-cover__logo
-  margin-bottom 5vh
+  margin 5vh 0
 
   img
     width 50vw
-    max-width 12rem
-    max-height 12rem
+    max-width 16rem
+    max-height 16rem
 
   i.material-icons
-    font-size 8rem
-    color bright
+    font-size 6rem
+    color link
 
-    width 12rem
-    height 12rem
-    border-radius 6rem
-    background link
+    width 10rem
+    height 10rem
+    border-radius 8rem
+    background url('~images/badge-zone.png') center center
+    background-size cover
 
     display flex
     align-items center
     justify-content center
+
+.section-cover__name
+.section-cover__tagline
+  height 3rem
+
+.section-cover__name
+  font-size h1
+  font-weight 500
+  color bright
+
+.section-cover__tagline
+  text-align center
+  font-weight 300
+  letter-spacing 0.025em
+  max-width 22rem
+  font-size lg
 
 .section-cover__scroll
   position absolute
@@ -81,27 +91,21 @@ export default {
 .section-cover__scroll .ni-btn
   shadow()
 
-.section-cover__name
-  display flex
-  align-items center
-  font-size h1
-  font-weight 500
-  color bright
+@media screen and (min-width: 375px)
+  .section-cover__logo
+    i.material-icons
+      width 11.72rem
+      height 11.72rem
 
-  margin-bottom 1.5vh
+@media screen and (min-width: 414px)
+  .section-cover__logo
+    i.material-icons
+      width 12.94rem
+      height 12.94rem
 
-.section-cover__tagline
-  text-align center
-  font-weight 300
-  letter-spacing 0.025em
-  line-height 2
-  color dim
-  max-width 22em
-
-  margin-bottom 5vh
-
-.section-cover__action
-  padding-bottom 3rem
-  .ni-btn
-    shadow()
+@media screen and (min-width: 512px)
+  .section-cover__logo
+    i.material-icons
+      width 16rem
+      height 16rem
 </style>

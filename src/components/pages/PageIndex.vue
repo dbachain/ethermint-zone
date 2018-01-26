@@ -16,9 +16,9 @@ export default {
   head: {
     title () {
       return {
-        inner: 'Cosmos',
+        inner: 'Ethermint',
         separator: '-',
-        complement: 'Internet of Blockchains'
+        complement: 'Cosmos Zone'
       }
     }
   }

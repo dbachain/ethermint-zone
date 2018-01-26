@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import SectionCover from 'sections/SectionCover'
 import SectionBenefits from 'sections/SectionBenefits'
 export default {
@@ -13,10 +14,11 @@ export default {
     SectionCover,
     SectionBenefits
   },
+  computed: { ...mapGetters(['text']) },
   head: {
     title () {
       return {
-        inner: 'Ethermint',
+        inner: this.text.zoneName,
         separator: '-',
         complement: 'Cosmos Zone'
       }
